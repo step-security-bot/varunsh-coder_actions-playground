@@ -2,18 +2,26 @@ name: Publish Package to npmjs
 on:
   workflow_dispatch
   
+permissions:
+  contents: read
+
 jobs:
   build:
     permissions:
       id-token: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3.8.2
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - uses: step-security/wait-for-secrets@v1
+      - uses: step-security/wait-for-secrets@5809f7d044804a5a1d43217fa8f3e855939fc9ef # v1.2.0
         id: get-otp
         with:
           wait-timeout: 1

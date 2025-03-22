@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 AS fuzz-introspector
+FROM ubuntu:20.04@sha256:8e5c4f0285ecbb4ead070431d29b576a530d3166df73ec44affc1cd27555141b AS fuzz-introspector
 
 # GCC-10 and CLANG/LLVM 12
 # Copyright 2022 Fuzz Introspector Authors
